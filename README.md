@@ -11,6 +11,8 @@ This is very simple sample Tableau 9.1 web data connector to Authorize.Net just 
 
 - You can run it locally or try it on my GitHub page https://CzechJiri.github.io/Tableau-Authorize.net/AuthorizeNet.html - simply open Tableau, select "Web Data Connector" as a datasource and paste the link above (obviously you need Authorize.Net sandbox access)
 
+- CSS comes from Saran Chamling and his really nice samples http://www.sanwebe.com/2014/08/css-html-forms-designs 
+
 
 thank you Brian McManus for not killing me for my constant bitching about API standards
 
