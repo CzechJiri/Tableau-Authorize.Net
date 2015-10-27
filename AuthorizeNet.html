@@ -1,0 +1,140 @@
+<html>
+<meta http-equiv="Cache-Control" content="no-store" />
+<head>
+<title>Authorize.Net Demo Connector</title>
+<link rel="stylesheet" type="text/css" href="AuthorizeNet.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://public.tableau.com/javascripts/api/tableauwdc-1.1.0.js" type="text/javascript"></script>
+<script type="text/javascript">
+ (function() {
+
+
+  //
+  // Connector definition
+  // 
+
+  var myConnector = tableau.makeConnector();
+ 
+  myConnector.init = function () {
+    myConnector._recordsFetched = 0;
+    tableau.incrementalExtractColumn  = "submitTimeUTC";
+    tableau.initCallback();
+  };
+
+  myConnector.getColumnHeaders = function() {
+
+    // its hardocded for now, this should be probably softloaded from the JSON
+    var fieldNames = ['transId', 'submitTimeUTC', 'submitTimeLocal', 'transactionStatus', 'accountType', 'accountNumber', 'settleAmount', 'marketType', 'product'];
+    var fieldTypes = ['string', 'date', 'date', 'string', 'string', 'string', 'float', 'string', 'string'];
+    tableau.headersCallback(fieldNames, fieldTypes); // tell tableau about the fields and their types
+  };
+   
+
+  myConnector.getTableData = function(lastRecordToken) {
+
+    // this is not the smartest way to pass token around, please do not use this for production
+    var login = JSON.parse(tableau.connectionData); 
+
+    var connectionUrl = 'https://apitest.authorize.net/xml/v1/request.api';
+    var xhr = $.ajax({
+        type: "POST",
+        data: JSON.stringify({'getUnsettledTransactionListRequest': {
+                                'merchantAuthentication': {
+                                       'name': login.apiLoginId,
+                                       'transactionKey': login.transactionKey
+                                       }
+                                }   
+                             }), 
+        url: connectionUrl,
+        contentType:"application/json",
+        dataType: 'json',
+        success: function (data) {
+
+              // for love of god why the errors are handled like this is beyond me
+              var response = data.messages.resultCode
+              if (response !== 'Ok') {
+                tableau.abortWithError("error connecting to authorize.net data source " + JSON.stringify(data));              
+              }
+
+              var transactions = data.transactions;
+              var ii;
+              var toRet = [];
+              // mash the data into an array of objects
+              for (ii = 0; ii < transactions.length; ++ii) {
+                  // Each entry can be a list of values in the same order as the columns
+                  // or an object where the column names are the keys of the map
+                  var entry = {'transId': transactions[ii].transId, 
+                               'submitTimeUTC': transactions[ii].submitTimeUTC, 
+                               'submitTimeLocal': transactions[ii].submitTimeLocal,
+                               'transactionStatus': transactions[ii].transactionStatus,
+                               'accountType': transactions[ii].accountType,
+                               'accountNumber': transactions[ii].accountNumber,
+                               'settleAmount': transactions[ii].settleAmount,
+                               'marketType': transactions[ii].marketType,
+                               'product': transactions[ii].product
+                              };
+                  toRet.push(entry);
+              }
+              // Call back to tableau with the table data and the new record number (this is stored as a string)
+              tableau.dataCallback(toRet, toRet.length.toString(), false);
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          // add something to the log and return an empty set if there was problem with the connection
+          tableau.log("connection error: " + xhr.responseText + "\n" + thrownError);
+          tableau.abortWithError("error connecting to authorize.net data source");
+        }
+    });
+  };
+
+
+
+  myConnector.setLogin = function(apiLoginId, transactionKey) {
+    tableau.connectionData = JSON.stringify({'apiLoginId': apiLoginId, 'transactionKey': transactionKey}); // pass the connection string
+    tableau.connectionName = 'Authorize.Net Demo using getUnsettledTransactionListRequest method'; // name the data source. This will be the data source name in Tableau
+  };
+
+  tableau.registerConnector(myConnector);
+
+  //
+  // Setup connector UI
+  //
+  $(document).ready(function() {
+    $("#goButton").click(function() { // This event fires when a button is clicked
+
+      var apiLoginId = $('input[name=apiLoginId]').val().trim();
+      var transactionKey = $('input[name=transactionKey]').val().trim();
+
+      if (apiLoginId && transactionKey) {
+        myConnector.setLogin(apiLoginId, transactionKey);
+        tableau.submit();
+      }
+    });
+  });
+
+})();
+</script>
+</head>
+
+
+
+
+
+<form class="form-style-9">
+<img src="AuthorizeNet.png" height="42" width="325" >
+<br> <br>
+<ul>
+<li>
+    <input type="text" name="apiLoginId" style="width: 300px;" class="field-style field-split align-left" placeholder="API Login ID" />
+</li>
+<li>
+    <input type="text" name="transactionKey" style="width: 300px;" class="field-style field-split align-left" placeholder="Transaction Key" />
+</li>
+<li>
+<input type="submit" id="goButton" value="Get Transaction Data" />
+</li>
+</ul>
+</form>
+</body>
+</html>
+
