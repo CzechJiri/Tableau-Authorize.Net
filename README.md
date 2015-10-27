@@ -9,7 +9,7 @@ This is very simple sample Tableau 9.1 connector to Authorize.Net just to show t
 
 - I use JSON calls, while still in beta I feel we should not go back to XML ever again for cases like this ;-)
 
-- You can run it locally or try it on my GitHub page https://CzechJiri.github.io/CzechJiri/Tableau-Authorize.net/AuthorizeNet.html (obviously you need Authorize.Net sandbox access)
+- You can run it locally or try it on my GitHub page https://CzechJiri.github.io/Tableau-Authorize.net/AuthorizeNet.html (obviously you need Authorize.Net sandbox access)
 
 
 thank you Brian McManus for not killing me for my constant bitching about API standards
