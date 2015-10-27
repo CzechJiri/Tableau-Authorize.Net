@@ -1,5 +1,7 @@
 # Tableau-Authorize.net
-This is very simple sample Tableau 9.1 web data connector to Authorize.Net just to show the capability how to load data from Authorize.Net directly to Tableau.
+This is very small sample Tableau 9.1 web data connector to Authorize.Net just to show the capability how to load data from Authorize.Net directly to Tableau.
+
+[![Tableau with Web Connector to Authorize.Net](http://i.imgur.com/7YTMFQp.png)](https://vimeo.com/143784699 "Tableau with Web Connector to Authorize.Net)
 
 - I use getUnsettledTransactionListRequest call (just to illustrate the capability). Please see Authorize.Net documentation for more details http://developer.authorize.net/api/reference/index.html#transaction-reporting-get-unsettled-transaction-list
 
@@ -9,12 +11,18 @@ This is very simple sample Tableau 9.1 web data connector to Authorize.Net just 
 
 - I use JSON calls, while still in beta I feel we should not go back to XML ever again for cases like this ;-)
 
-- You can run it locally or try it on my GitHub page https://CzechJiri.github.io/Tableau-Authorize.net/AuthorizeNet.html - simply open Tableau, select "Web Data Connector" as a datasource and paste the link above (obviously you need Authorize.Net sandbox access)
-
 - CSS comes from Saran Chamling and his really nice samples http://www.sanwebe.com/2014/08/css-html-forms-designs 
 
 
-thank you Brian McManus for not killing me for my constant bitching about API standards
+thank you @brianmc for not killing me for my constant bitching about API standards
+
+
+#How to run it
+
+- get your Sandbox access to Authorize.Net DA!
+- simply clone the repo
+- start the web server e.g. ```ython -m SimpleHTTPServer 8888``` in the same directory 
+- open Tableau, select "Web Data Connector" as a datasource and paste this lin khttp://localhost:8888/AuthorizeNet.html
 
 
 #cURL calls
