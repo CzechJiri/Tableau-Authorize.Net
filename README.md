@@ -1,7 +1,7 @@
 # Tableau-Authorize.net
 This is very small sample Tableau 9.1 web data connector to Authorize.Net just to show the capability how to load data from Authorize.Net directly to Tableau.
 
-[![Tableau and Authorize.Net Web Data Connector](http://i.imgur.com/7YTMFQp.png)](https://vimeo.com/143787905 "Tableau and Authorize.Net Web Data Connector - Click to Watch")
+[![Tableau and Authorize.Net Web Data Connector](http://i.imgur.com/XBd13lW.png)](https://vimeo.com/143787905 "Tableau and Authorize.Net Web Data Connector - Click to Watch")
 
 
 - I use getUnsettledTransactionListRequest call (just to illustrate the capability). Please see Authorize.Net documentation for more details http://developer.authorize.net/api/reference/index.html#transaction-reporting-get-unsettled-transaction-list
@@ -15,16 +15,16 @@ This is very small sample Tableau 9.1 web data connector to Authorize.Net just t
 - CSS comes from Saran Chamling and his really nice samples http://www.sanwebe.com/2014/08/css-html-forms-designs 
 
 
-thank you @brianmc for not killing me for my constant bitching about API standards
+thank you [Brian](https://github.com/brianmc) for not killing me for my constant bitching about API standards
 
 
 #How to run it
 
 - get your Authorize.Net Sandbox Login ID and Transaction Key
-- by default Transaction API is desabled, you have to login to Authorize.Net console and enable it
+- by default Transaction API is disabled, you have to login to Authorize.Net console and enable it
 
 - simply clone this repo
-- start the web server e.g. ```python -m SimpleHTTPServer 8888``` in the same directory 
+- start simpple web server e.g. python ```python -m SimpleHTTPServer 8888``` or ruby ```ruby -run -e httpd . -p 8888``` in the same directory 
 
 - open Tableau, select "Web Data Connector" as a datasource
 - paste this link http://localhost:8888/AuthorizeNet.html
