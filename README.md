@@ -1,4 +1,4 @@
-# Tableau-Authorize.net
+# Tableau-Authorize.Net
 This is very small sample Tableau 9.1 web data connector to Authorize.Net just to show the capability how to load data from Authorize.Net directly to Tableau.
 
 [![Tableau and Authorize.Net Web Data Connector](http://i.imgur.com/XBd13lW.png)](https://vimeo.com/143787905 "Tableau and Authorize.Net Web Data Connector - Click to Watch")
