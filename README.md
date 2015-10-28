@@ -33,7 +33,7 @@ thank you [Brian](https://github.com/brianmc) for not killing me for my constant
 
 #cURL calls
 
-in case anybody wants to play with cURL and is wondering with Authorize.Net docs lack of simple cURL samples, here it is
+in case anybody wants to play with cURL and is wondering why Authorize.Net docs do not include simple cURL samples, here it is
 
 ```
 curl -H "Content-Type: application/json" -X POST -d '
