@@ -4,7 +4,7 @@ This is very small sample Tableau 9.1 web data connector to Authorize.Net just t
 [![Tableau and Authorize.Net Web Data Connector](http://i.imgur.com/XBd13lW.png)](https://vimeo.com/143787905 "Tableau and Authorize.Net Web Data Connector - Click to Watch")
 
 
-- I use *getUnsettledTransactionListRequest* call (just to illustrate the capability). Please see Authorize.Net documentation for more details http://developer.authorize.net/api/reference/index.html#transaction-reporting-get-unsettled-transaction-list
+- I use **getUnsettledTransactionListRequest** call (just to illustrate the capability). Please see Authorize.Net documentation for more details http://developer.authorize.net/api/reference/index.html#transaction-reporting-get-unsettled-transaction-list
 
 - in theory, the incremental refresh should work as well
 
